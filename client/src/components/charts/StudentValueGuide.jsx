@@ -339,16 +339,16 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
 
     xAxis
       .selectAll("text")
-      .attr("fill", "#475569")
-      .attr("font-size", "11px")
+      .attr("fill", "var(--text-muted)")
+      .attr("font-size", "12px")
       .attr("font-weight", "500")
       .attr("transform", "rotate(-45)")
       .style("text-anchor", "end")
       .attr("dx", "-0.5em")
       .attr("dy", "0.5em");
 
-    xAxis.select(".domain").attr("stroke", "#475569");
-    xAxis.selectAll("line").attr("stroke", "#475569");
+    xAxis.select(".domain").attr("stroke", "var(--border)");
+    xAxis.selectAll("line").attr("stroke", "var(--border)");
 
     // Y Axis
     const yAxis = g.append("g").call(
@@ -358,10 +358,13 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
         .tickFormat((d) => `$${d >= 1000 ? (d / 1000).toFixed(0) + "k" : d}`)
     );
 
-    yAxis.selectAll("text").attr("fill", "#475569").attr("font-size", "11px");
+    yAxis
+      .selectAll("text")
+      .attr("fill", "var(--text-muted)")
+      .attr("font-size", "12px");
 
-    yAxis.select(".domain").attr("stroke", "#475569");
-    yAxis.selectAll("line").attr("stroke", "#475569");
+    yAxis.select(".domain").attr("stroke", "var(--border)");
+    yAxis.selectAll("line").attr("stroke", "var(--border)");
 
     // Y Axis Label
     g.append("text")
@@ -369,8 +372,8 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
       .attr("y", -50)
       .attr("x", -chartHeight / 2)
       .attr("text-anchor", "middle")
-      .attr("fill", "#475569")
-      .attr("font-size", "12px")
+      .attr("fill", "var(--text-muted)")
+      .attr("font-size", "13px")
       .attr("font-weight", "500")
       .text("Amount (USD)");
 
@@ -403,8 +406,8 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
         .append("text")
         .attr("x", 22)
         .attr("y", 12)
-        .attr("fill", "#1e293b")
-        .attr("font-size", "12px")
+        .attr("fill", "var(--text-main)")
+        .attr("font-size", "13px")
         .attr("font-weight", "500")
         .text(item.label);
     });
@@ -415,8 +418,8 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
       .attr("x", 0)
       .attr("y", 30)
       .attr("text-anchor", "middle")
-      .attr("fill", "#475569")
-      .attr("font-size", "11px")
+      .attr("fill", "var(--text-muted)")
+      .attr("font-size", "12px")
       .text("Student Cost = Rent + Food + Transport");
 
     // Cleanup tooltip on unmount
@@ -426,7 +429,7 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
   }, [displayCities, selectedCity, onCitySelect, chartType]);
 
   return (
-    <div className="student-value-guide" style={{ color: "#000000" }}>
+    <div className="student-value-guide" style={{ color: "var(--text-main)" }}>
       {/* Header */}
       <div
         style={{
@@ -447,7 +450,7 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
               display: "flex",
               alignItems: "center",
               gap: "0.5rem",
-              color: "#000000",
+              color: "var(--text-main)",
             }}
           >
             Top 20 Best Value Cities for Students
@@ -455,7 +458,7 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
           <p
             style={{
               margin: "0.25rem 0 0 0",
-              color: "#000000",
+              color: "var(--text-muted)",
               fontSize: "0.875rem",
             }}
           >
@@ -478,10 +481,10 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
               value={chartType}
               onChange={(e) => setChartType(e.target.value)}
               style={{
-                border: "1px solid #cbd5e1",
+                border: "1px solid var(--border)",
                 borderRadius: "8px",
                 padding: "0.5rem 2.2rem 0.5rem 1rem",
-                color: "#1e293b",
+                color: "var(--text-main)",
                 fontSize: "0.95rem",
                 cursor: "pointer",
                 appearance: "none",
@@ -492,7 +495,7 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
                 boxSizing: "border-box",
                 fontWeight: 600,
                 letterSpacing: "-0.01em",
-                background: "#f8fafc",
+                background: "var(--bg-card)",
               }}
             >
               <option value="grouped">Grouped Bars</option>
@@ -506,7 +509,7 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
                 top: "50%",
                 transform: "translateY(-50%)",
                 pointerEvents: "none",
-                color: "#1e293b",
+                color: "var(--text-muted)",
               }}
             />
           </div>
@@ -518,10 +521,10 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
                 value={regionFilter}
                 onChange={(e) => setRegionFilter(e.target.value)}
                 style={{
-                  border: "1px solid #cbd5e1",
+                  border: "1px solid var(--border)",
                   borderRadius: "8px",
                   padding: "0.5rem 2.2rem 0.5rem 1rem",
-                  color: "#1e293b",
+                  color: "var(--text-main)",
                   fontSize: "0.95rem",
                   cursor: "pointer",
                   appearance: "none",
@@ -530,7 +533,7 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
                   outline: "none",
                   width: "100%",
                   boxSizing: "border-box",
-                  background: "#f8fafc",
+                  background: "var(--bg-card)",
                 }}
               >
                 {Object.keys(REGIONS).map((region) => (
@@ -547,7 +550,7 @@ const StudentValueGuide = ({ cities, onCitySelect, selectedCity }) => {
                   top: "50%",
                   transform: "translateY(-50%)",
                   pointerEvents: "none",
-                  color: "#1e293b",
+                  color: "var(--text-muted)",
                 }}
               />
             </div>

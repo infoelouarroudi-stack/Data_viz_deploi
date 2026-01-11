@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Trash2, Coffee, Beer, Home, Utensils } from "lucide-react";
 
@@ -11,6 +11,7 @@ const StudentBasket = ({
 }) => {
   const [selectedCities, setSelectedCities] = useState(propSelectedCities);
   const [searchTerm, setSearchTerm] = useState("");
+  const searchRef = useRef(null);
 
   // Lifestyle Config State
   const [housingType, setHousingType] = useState("shared"); // shared, studio_out, studio_in
@@ -21,6 +22,19 @@ const StudentBasket = ({
   useEffect(() => {
     setSelectedCities(propSelectedCities);
   }, [propSelectedCities]);
+
+  useEffect(() => {
+    if (!searchTerm) return;
+
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setSearchTerm("");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [searchTerm]);
 
   const addToComparison = (city) => {
     if (!selectedCities.find((c) => c.city === city.city)) {
@@ -170,7 +184,10 @@ const StudentBasket = ({
         </div>
 
         {/* City Input Field */}
-        <div style={{ marginBottom: "1.5rem", position: "relative" }}>
+        <div
+          style={{ marginBottom: "1.5rem", position: "relative" }}
+          ref={searchRef}
+        >
           <input
             type="text"
             placeholder="Add a city to compare..."
@@ -194,14 +211,15 @@ const StudentBasket = ({
                 left: 0,
                 right: 0,
                 marginTop: "4px",
-                background: "var(--bg-card)",
+                background: "var(--bg-secondary)",
                 border: "1px solid var(--border)",
                 borderRadius: "8px",
                 zIndex: 50,
                 maxHeight: "200px",
                 overflowY: "auto",
                 color: "var(--text-main)",
-                boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                boxShadow:
+                  "0 20px 25px -15px rgba(15, 23, 42, 0.35), 0 10px 12px -12px rgba(15, 23, 42, 0.2)",
               }}
             >
               {allCities
@@ -218,7 +236,7 @@ const StudentBasket = ({
                       cursor: "pointer",
                       borderBottom: "1px solid var(--border)",
                     }}
-                    className="hover-bg"
+                    className="dropdown-option"
                   >
                     {c.city}, {c.country}
                   </div>
@@ -389,7 +407,13 @@ const StudentBasket = ({
 
       {/* RIGHT: City Cards */}
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <div className="grid-cols-3" style={{ gap: "1rem" }}>
+        <div
+          className="grid-cols-3"
+          style={{
+            display: "grid",
+            gap: "1rem",
+          }}
+        >
           {selectedCities.map((city) => {
             const budget = calculateBudget(city);
             return (
@@ -486,7 +510,7 @@ const StudentBasket = ({
             style={{
               textAlign: "center",
               padding: "3rem",
-              border: "2px dashed rgba(255,255,255,0.1)",
+              border: "2px dashed var(--border)",
               borderRadius: "1rem",
             }}
           >

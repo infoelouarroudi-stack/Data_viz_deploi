@@ -67,7 +67,7 @@ const ExpenseBreakdown = ({ cityData }) => {
       .join("path")
       .attr("d", arc)
       .attr("fill", (d) => d.data.color)
-      .attr("stroke", "var(--bg-card)")
+      .attr("stroke", "#000000")
       .style("stroke-width", "4px")
       .style("cursor", "pointer")
       .on("mouseenter", function (e, d) {

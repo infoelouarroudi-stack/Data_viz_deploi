@@ -559,7 +559,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                       key={i}
                       style={{
                         padding: "1rem",
-                        background: "var(--bg-card)",
+                        background: "var(--bg-secondary)",
                         borderLeft: `4px solid ${
                           tip.type === "warning"
                             ? "#ef4444"
@@ -571,6 +571,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                         borderRight: "1px solid var(--border)",
                         borderBottom: "1px solid var(--border)",
                         borderRadius: "8px",
+                        boxShadow: "0 1px 4px rgba(15, 23, 42, 0.08)",
                       }}
                     >
                       <div
@@ -580,7 +581,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                           display: "flex",
                           alignItems: "center",
                           gap: "0.5rem",
-                          color: "#1e293b",
+                          color: "var(--text-main)",
                         }}
                       >
                         <span>{tip.icon}</span> {tip.title}
@@ -588,7 +589,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                       <div
                         style={{
                           fontSize: "0.9rem",
-                          color: "#334155",
+                          color: "var(--text-main)",
                           lineHeight: "1.5",
                         }}
                       >
@@ -819,7 +820,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                 <div>
                   <h3
                     style={{
-                      color: "#000000",
+                      color: "var(--text-main)",
                       marginBottom: "1.5rem",
                       fontSize: "1.2rem",
                       fontWeight: "bold",
@@ -845,7 +846,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                 <div>
                   <h3
                     style={{
-                      color: "#000000",
+                      color: "var(--text-main)",
                       marginBottom: "1.5rem",
                       fontSize: "1.2rem",
                       fontWeight: "bold",

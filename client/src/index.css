@@ -202,6 +202,32 @@ select option {
   color: var(--text-main);
 }
 
+.dropdown-option {
+  background: var(--bg-card);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-option:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-main);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1024px) {
+  .grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-cols-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Tooltips */
 .chart-tooltip {
   position: absolute;

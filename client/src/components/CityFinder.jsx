@@ -51,7 +51,7 @@ const CityFinder = ({ cities }) => {
   };
 
   return (
-    <div style={{ color: "#fff" }}>
+    <div style={{ color: "var(--text-main)" }}>
       <div
         style={{
           display: "grid",
@@ -65,7 +65,7 @@ const CityFinder = ({ cities }) => {
             style={{
               display: "block",
               marginBottom: "0.5rem",
-              color: "#475569",
+              color: "var(--text-muted)",
               fontWeight: "600",
             }}
           >
@@ -79,9 +79,9 @@ const CityFinder = ({ cities }) => {
               width: "100%",
               padding: "0.5rem 1rem",
               borderRadius: "8px",
-              border: "1px solid #cbd5e1",
-              background: "#f8fafc",
-              color: "#1e293b",
+              border: "1px solid var(--border)",
+              background: "var(--bg-card)",
+              color: "var(--text-main)",
               fontSize: "0.95rem",
               outline: "none",
             }}
@@ -92,7 +92,7 @@ const CityFinder = ({ cities }) => {
             style={{
               display: "block",
               marginBottom: "0.5rem",
-              color: "#475569",
+              color: "var(--text-muted)",
               fontWeight: "600",
             }}
           >
@@ -106,9 +106,9 @@ const CityFinder = ({ cities }) => {
               width: "100%",
               padding: "0.5rem 1rem",
               borderRadius: "8px",
-              border: "1px solid #cbd5e1",
-              background: "#f8fafc",
-              color: "#1e293b",
+              border: "1px solid var(--border)",
+              background: "var(--bg-card)",
+              color: "var(--text-main)",
               fontSize: "0.95rem",
               outline: "none",
             }}
@@ -119,7 +119,7 @@ const CityFinder = ({ cities }) => {
             style={{
               display: "block",
               marginBottom: "0.5rem",
-              color: "#475569",
+              color: "var(--text-muted)",
               fontWeight: "600",
             }}
           >
@@ -130,11 +130,11 @@ const CityFinder = ({ cities }) => {
               value={regionFilter}
               onChange={(e) => setRegionFilter(e.target.value)}
               style={{
-                border: "1px solid #cbd5e1",
+                border: "1px solid var(--border)",
                 borderRadius: "8px",
                 padding: "0.5rem 2.2rem 0.5rem 1rem",
-                color: "#1e293b",
-                background: "#f8fafc",
+                color: "var(--text-main)",
+                background: "var(--bg-card)",
                 fontSize: "0.95rem",
                 cursor: "pointer",
                 appearance: "none",
@@ -160,7 +160,7 @@ const CityFinder = ({ cities }) => {
               height="18"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#475569"
+              stroke="var(--text-muted)"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -170,7 +170,7 @@ const CityFinder = ({ cities }) => {
                 top: "50%",
                 transform: "translateY(-50%)",
                 pointerEvents: "none",
-                color: "#475569",
+                color: "var(--text-muted)",
               }}
             >
               <polyline points="6 9 12 15 18 9" />
@@ -182,7 +182,7 @@ const CityFinder = ({ cities }) => {
             style={{
               display: "block",
               marginBottom: "0.5rem",
-              color: "#475569",
+              color: "var(--text-muted)",
               fontWeight: "600",
             }}
           >
@@ -193,11 +193,11 @@ const CityFinder = ({ cities }) => {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               style={{
-                border: "1px solid #cbd5e1",
+                border: "1px solid var(--border)",
                 borderRadius: "8px",
                 padding: "0.5rem 2.2rem 0.5rem 1rem",
-                color: "#1e293b",
-                background: "#f8fafc",
+                color: "var(--text-main)",
+                background: "var(--bg-card)",
                 fontSize: "0.95rem",
                 cursor: "pointer",
                 appearance: "none",
@@ -221,7 +221,7 @@ const CityFinder = ({ cities }) => {
               height="18"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#475569"
+              stroke="var(--text-muted)"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -231,7 +231,7 @@ const CityFinder = ({ cities }) => {
                 top: "50%",
                 transform: "translateY(-50%)",
                 pointerEvents: "none",
-                color: "#475569",
+                color: "var(--text-muted)",
               }}
             >
               <polyline points="6 9 12 15 18 9" />
@@ -295,14 +295,14 @@ const CityFinder = ({ cities }) => {
                   fontSize: "1.1rem",
                   fontWeight: "600",
                   marginBottom: "0.5rem",
-                  color: "#1e293b",
+                  color: "var(--text-main)",
                 }}
               >
                 {city.city}
               </div>
               <div
                 style={{
-                  color: "#64748b",
+                  color: "var(--text-muted)",
                   fontSize: "0.9rem",
                   marginBottom: "0.5rem",
                 }}
@@ -318,8 +318,8 @@ const CityFinder = ({ cities }) => {
                   fontSize: "0.9rem",
                 }}
               >
-                <span style={{ color: "#64748b" }}>Cost:</span>
-                <span style={{ color: "#1e293b", fontWeight: "600" }}>
+                <span style={{ color: "var(--text-muted)" }}>Cost:</span>
+                <span style={{ color: "var(--text-main)", fontWeight: "600" }}>
                   {hasCost
                     ? `$${city.estimated_monthly_cost_single.toFixed(0)}`
                     : "N/A"}
@@ -333,8 +333,8 @@ const CityFinder = ({ cities }) => {
                   fontSize: "0.9rem",
                 }}
               >
-                <span style={{ color: "#64748b" }}>Salary:</span>
-                <span style={{ color: "#1e293b", fontWeight: "600" }}>
+                <span style={{ color: "var(--text-muted)" }}>Salary:</span>
+                <span style={{ color: "var(--text-main)", fontWeight: "600" }}>
                   {hasSalary ? `$${city.salary.toFixed(0)}` : "N/A"}
                 </span>
               </div>
@@ -344,11 +344,11 @@ const CityFinder = ({ cities }) => {
                   justifyContent: "space-between",
                   marginTop: "0.5rem",
                   paddingTop: "0.5rem",
-                  borderTop: "1px dashed #cbd5e1",
+                  borderTop: "1px dashed var(--border)",
                   fontSize: "0.9rem",
                 }}
               >
-                <span style={{ color: "#64748b" }}>Power:</span>
+                <span style={{ color: "var(--text-muted)" }}>Power:</span>
                 <span
                   style={{
                     color:
@@ -365,7 +365,7 @@ const CityFinder = ({ cities }) => {
           <div
             style={{
               textAlign: "center",
-              color: "#64748b",
+              color: "var(--text-muted)",
               gridColumn: "1/-1",
             }}
           >

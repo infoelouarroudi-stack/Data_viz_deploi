@@ -31,6 +31,9 @@ const InsightPanel = ({ cityData }) => {
 
   // Calculators
   const totalCost = cityData.estimated_monthly_cost_single;
+  const salary = cityData.salary || 0;
+  const savingsPotential = salary > 0 ? ((salary - totalCost) / salary) * 100 : 0;
+  const savingsAmount = salary - totalCost;
   // Replaced Salary/Savings with Internet and Quality of Life
   const internet = cityData.internet || 0;
   const qol = cityData.quality_of_life_index || 0;
@@ -168,6 +171,58 @@ const InsightPanel = ({ cityData }) => {
             }}
           >
             Safety, Health, Climate & more
+          </div>
+        </div>
+      )}
+
+      {salary > 0 && (
+        <div style={{ marginBottom: "2rem" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "0.5rem",
+            }}
+          >
+            <span style={{ color: "#64748b", fontWeight: "600" }}>
+              Savings Potential
+            </span>
+            <span
+              style={{
+                color: savingsPotential > 0 ? "#22c55e" : "#ef4444",
+                fontWeight: "bold",
+              }}
+            >
+              {savingsPotential.toFixed(1)}%
+            </span>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              height: "8px",
+              background: "#e2e8f0",
+              borderRadius: "4px",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                width: `${Math.min(100, Math.max(0, savingsPotential))}%`,
+                height: "100%",
+                background: savingsPotential > 0 ? "#22c55e" : "#ef4444",
+                transition: "width 0.3s ease-out",
+              }}
+            ></div>
+          </div>
+          <div
+            style={{
+              fontSize: "0.8rem",
+              color: "#64748b",
+              marginTop: "5px",
+              textAlign: "right",
+            }}
+          >
+            You could save ~${Math.max(0, savingsAmount).toFixed(0)}/mo
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { LABELS } from "../data/columns";
 import { generateSmartTips } from "../utils/smartTips";
-import BarChart from "./charts/BarChart";
+import BarChart from "./charts/barChart";
 import ScatterPlot from "./charts/ScatterPlot";
 import WorldMap from "./charts/WorldMap";
 import RadarChart from "./charts/RadarChart";

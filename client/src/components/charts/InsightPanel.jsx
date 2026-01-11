@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const InsightPanel = ({ cityData }) => {
+const InsightPanel = ({ cityData, showSavings = false }) => {
   if (!cityData) {
     return (
       <div
@@ -32,7 +32,8 @@ const InsightPanel = ({ cityData }) => {
   // Calculators
   const totalCost = cityData.estimated_monthly_cost_single;
   const salary = cityData.salary || 0;
-  const savingsPotential = salary > 0 ? ((salary - totalCost) / salary) * 100 : 0;
+  const savingsPotential =
+    salary > 0 ? ((salary - totalCost) / salary) * 100 : 0;
   const savingsAmount = salary - totalCost;
   // Replaced Salary/Savings with Internet and Quality of Life
   const internet = cityData.internet || 0;
@@ -175,7 +176,7 @@ const InsightPanel = ({ cityData }) => {
         </div>
       )}
 
-      {salary > 0 && (
+      {showSavings && salary > 0 && (
         <div style={{ marginBottom: "2rem" }}>
           <div
             style={{
@@ -304,6 +305,7 @@ const InsightPanel = ({ cityData }) => {
 
 InsightPanel.propTypes = {
   cityData: PropTypes.object,
+  showSavings: PropTypes.bool,
 };
 
 export default InsightPanel;

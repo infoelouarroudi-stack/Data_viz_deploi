@@ -92,8 +92,8 @@ const Dashboard = () => {
 
   const tabs = [
     { id: "overview", label: "Global Overview", icon: BarChart3 },
-    { id: "insights", label: "City Insights", icon: TrendingUp },
     { id: "student", label: "Student Hub", icon: GraduationCap },
+    { id: "insights", label: "City Insights", icon: TrendingUp },
     { id: "compare", label: "Compare Cities", icon: Scale },
     { id: "planner", label: "Budget Planner", icon: Calculator },
     { id: "about", label: "About", icon: Info },
@@ -126,7 +126,7 @@ const Dashboard = () => {
           }}
         >
           {/* LOGO & TITRE - NOUVEAU DESIGN */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <img
               src="/android-chrome-192x192.png"
               alt="Global Cost of Living logo"
@@ -261,7 +261,7 @@ const Dashboard = () => {
           <section
             style={{ display: "flex", width: "100%", marginBottom: "2rem" }}
           >
-            <InsightPanel cityData={hoveredCity} />
+            <InsightPanel cityData={hoveredCity} showSavings />
           </section>
 
           <section className="card">

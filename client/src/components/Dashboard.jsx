@@ -490,7 +490,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                 }}
               >
                 <h3 style={{ margin: 0 }}>
-                  🤖 AI Agent Tips: {tipCity ? tipCity.city : "Select a city"}
+                  Tips: {tipCity ? tipCity.city : "Select a city"}
                 </h3>
                 <div style={{ position: "relative", minWidth: 150 }}>
                   <select

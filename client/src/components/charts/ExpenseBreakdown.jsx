@@ -1,16 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import * as d3 from "d3";
 import PropTypes from "prop-types";
 
 const ExpenseBreakdown = ({ cityData }) => {
   const svgRef = useRef();
 
-  useEffect(() => {
-    if (!cityData) return;
-
-    // If we have raw values, let's use them. If only indices, we use indices.
-    // Assuming cityData has 'apt_1bed_city_center', 'mc_meal', 'milk' etc.
-    // Let's approximate a "Budget"
+  const { data, total } = useMemo(() => {
+    if (!cityData) return { data: [], total: 0 };
 
     const housing =
       (cityData.apt_1bed_city_center + cityData.apt_1bed_outside_center) / 2 ||
@@ -25,13 +21,21 @@ const ExpenseBreakdown = ({ cityData }) => {
     const utilities = cityData.utilities_basic + cityData.internet || 0;
     const leisure = cityData.fitness_club + cityData.cinema * 2 || 0;
 
-    const data = [
+    const rawData = [
       { label: "Housing", value: housing, color: "#6366f1" },
       { label: "Food & Groceries", value: food, color: "#ec4899" },
       { label: "Transport", value: transport, color: "#14b8a6" },
       { label: "Utilities", value: utilities, color: "#f59e0b" },
       { label: "Leisure", value: leisure, color: "#8b5cf6" },
     ].filter((d) => d.value > 0);
+
+    const calculatedTotal = rawData.reduce((acc, curr) => acc + curr.value, 0);
+
+    return { data: rawData, total: calculatedTotal };
+  }, [cityData]);
+
+  useEffect(() => {
+    if (!data.length) return;
 
     const width = 300;
     const height = 300;
@@ -67,7 +71,7 @@ const ExpenseBreakdown = ({ cityData }) => {
       .join("path")
       .attr("d", arc)
       .attr("fill", (d) => d.data.color)
-      .attr("stroke", "#000000")
+      .attr("stroke", "var(--bg-card)")
       .style("stroke-width", "4px")
       .style("cursor", "pointer")
       .on("mouseenter", function (e, d) {
@@ -78,15 +82,11 @@ const ExpenseBreakdown = ({ cityData }) => {
       })
       .on("mouseleave", function () {
         d3.select(this).transition().duration(200).attr("d", arc);
-        g.select(".center-text-val").text(
-          `$${data.reduce((a, b) => a + b.value, 0).toFixed(0)}`
-        );
+        g.select(".center-text-val").text(`$${total.toFixed(0)}`);
         g.select(".center-text-label").text("Total / Mo");
       });
 
     // Center Text
-    const total = data.reduce((acc, curr) => acc + curr.value, 0);
-
     g.append("text")
       .attr("class", "center-text-val")
       .attr("text-anchor", "middle")
@@ -103,7 +103,7 @@ const ExpenseBreakdown = ({ cityData }) => {
       .style("font-size", "12px")
       .style("fill", "var(--text-muted)")
       .text("Total / Mo");
-  }, [cityData]);
+  }, [data, total]);
 
   return (
     <div
@@ -119,36 +119,33 @@ const ExpenseBreakdown = ({ cityData }) => {
           justifyContent: "center",
         }}
       >
-        {["Housing", "Food", "Transport", "Utilities", "Leisure"].map(
-          (l, i) => (
+        {data.map((item, i) => (
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.25rem",
+              fontSize: "0.8rem",
+              color: "var(--text-main)",
+            }}
+          >
             <div
-              key={i}
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.25rem",
-                fontSize: "0.8rem",
-                color: "var(--text-main)",
+                width: 8,
+                height: 8,
+                borderRadius: "50%",
+                backgroundColor: item.color,
               }}
-            >
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  backgroundColor: [
-                    "#6366f1",
-                    "#ec4899",
-                    "#14b8a6",
-                    "#f59e0b",
-                    "#8b5cf6",
-                  ][i],
-                }}
-              ></div>
-              <span>{l}</span>
-            </div>
-          )
-        )}
+            ></div>
+            <span>
+              {item.label}
+              <span style={{ color: "var(--text-muted)", marginLeft: "4px" }}>
+                ({((item.value / total) * 100).toFixed(0)}%)
+              </span>
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );

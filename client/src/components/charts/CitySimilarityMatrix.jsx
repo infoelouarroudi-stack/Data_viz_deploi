@@ -261,11 +261,11 @@ const CitySimilarityMatrix = ({ cities, onCitySelect }) => {
         overflowY: "auto",
         position: "relative", 
         maxHeight: "80vh",
-        background: "linear-gradient(145deg, rgba(15, 23, 42, 0.6), rgba(30, 41, 59, 0.4))",
+        background: "var(--bg-card)",
         borderRadius: "16px",
         padding: "1.5rem",
-        border: "1px solid rgba(99, 102, 241, 0.2)",
-        boxShadow: "inset 0 2px 10px rgba(0,0,0,0.2)"
+        border: "1px solid var(--border)",
+        boxShadow: "var(--glass-shadow)"
       }}>
         <svg ref={svgRef}></svg>
 
@@ -277,26 +277,26 @@ const CitySimilarityMatrix = ({ cities, onCitySelect }) => {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              background: "linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98))",
+              background: "var(--chart-tooltip-bg)",
               padding: "1.25rem 1.75rem",
               borderRadius: "16px",
-              border: "1px solid rgba(255,255,255,0.15)",
-              color: "white",
+              border: "1px solid var(--border)",
+              color: "var(--chart-tooltip-color)",
               pointerEvents: "none",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.2)",
               zIndex: 1000,
               textAlign: "center",
               backdropFilter: "blur(8px)",
             }}
           >
-            <div style={{ fontSize: "2.5rem", fontWeight: "bold", color: "#38bdf8", marginBottom: "0.25rem", textShadow: "0 0 20px rgba(56.189,248,0.5)" }}>
+            <div style={{ fontSize: "2.5rem", fontWeight: "bold", color: "var(--primary)", marginBottom: "0.25rem" }}>
               {(hoveredCell.value * 100).toFixed(0)}%
             </div>
-            <div style={{ fontSize: "0.9rem", marginBottom: "0.75rem", color: "#94a3b8" }}>Similarity Score</div>
+            <div style={{ fontSize: "0.9rem", marginBottom: "0.75rem", color: "var(--text-muted)" }}>Similarity Score</div>
             <div style={{ fontSize: "0.95rem", display: "flex", gap: "0.5rem", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ color: "#f0f0f0", fontWeight: 600 }}>{hoveredCell.sourceCity}</span>
-              <span style={{ color: "#64748b" }}>↔</span>
-              <span style={{ color: "#f0f0f0", fontWeight: 600 }}>{hoveredCell.targetCity}</span>
+              <span style={{ color: "var(--text-main)", fontWeight: 600 }}>{hoveredCell.sourceCity}</span>
+              <span style={{ color: "var(--text-muted)" }}>↔</span>
+              <span style={{ color: "var(--text-main)", fontWeight: 600 }}>{hoveredCell.targetCity}</span>
             </div>
           </div>
         )}
@@ -307,17 +307,17 @@ const CitySimilarityMatrix = ({ cities, onCitySelect }) => {
         style={{
           marginTop: "1.5rem",
           padding: "1rem 1.25rem",
-          background: "linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(16, 185, 129, 0.08))",
+          background: "var(--bg-card)",
           borderRadius: "10px",
           fontSize: "0.9rem",
           color: "var(--text-muted)",
           display: "flex",
           gap: "0.75rem",
           alignItems: "flex-start",
-          border: "1px solid rgba(99, 102, 241, 0.2)",
+          border: "1px solid var(--border)",
         }}
       >
-        <Info size={20} style={{ flexShrink: 0, marginTop: "2px", color: "#6366f1" }} />
+        <Info size={20} style={{ flexShrink: 0, marginTop: "2px", color: "var(--primary)" }} />
         <div>
           <strong style={{ color: "var(--text-main)" }}>How to read:</strong> Find a city you like, then scan across its row. Bright yellow cells indicate cities with very similar <strong>Rent</strong>, <strong>Food</strong>, and <strong>Transport</strong> costs.
         </div>

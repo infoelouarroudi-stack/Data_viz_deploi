@@ -136,7 +136,7 @@ const CONTINENT_CONFIG = {
   },
 };
 
-const WorldMap = ({ countryData, cities, onHover }) => {
+const WorldMap = ({ countryData, cities, onHover, onClick }) => {
   const svgRef = useRef();
   const containerRef = useRef();
   const [tooltip, setTooltip] = useState(null);
@@ -528,6 +528,9 @@ const WorldMap = ({ countryData, cities, onHover }) => {
             d3.select(event.target).attr("stroke", "#fff").attr("r", 6);
             setTooltip(null);
             isHovering.current = false;
+          })
+          .on("click", (event, d) => {
+             if (onClick) onClick(d);
           });
 
         // Update function for animation

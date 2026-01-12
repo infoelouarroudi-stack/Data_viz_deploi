@@ -10,6 +10,9 @@ import CityFinder from "./CityFinder";
 import StudentBasket from "./charts/StudentBasket";
 import InsightPanel from "./charts/InsightPanel";
 import StudentValueGuide from "./charts/StudentValueGuide";
+import CitySimilarityMatrix from "./charts/CitySimilarityMatrix";
+import SmartTipsPanel from "./charts/SmartTipsPanel";
+import CitySnapshot from "./charts/CitySnapshot";
 import {
   TrendingUp,
   GraduationCap,
@@ -38,6 +41,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
   // State for Student Hub
   const [studentCities, setStudentCities] = useState([]);
   const [tipCity, setTipCity] = useState(null);
+  const [selectedOverviewCity, setSelectedOverviewCity] = useState(null);
 
   useEffect(() => {
     Promise.all([
@@ -264,13 +268,14 @@ const Dashboard = ({ theme, toggleTheme }) => {
               countryData={countries}
               cities={cities}
               onHover={setHoveredCity}
+              onClick={setSelectedOverviewCity}
             />
           </section>
 
           <section
             style={{ display: "flex", width: "100%", marginBottom: "2rem" }}
           >
-            <InsightPanel cityData={hoveredCity} showSavings />
+            <CitySnapshot cityData={selectedOverviewCity} />
           </section>
 
           <section className="card">
@@ -365,13 +370,10 @@ const Dashboard = ({ theme, toggleTheme }) => {
             </section>
           </div>
 
-          {/* Student Value Guide Section */}
-          <section className="card" style={{ marginTop: "2rem" }}>
-            <StudentValueGuide
-              cities={cities}
-              onCitySelect={setInsightCity}
-              selectedCity={insightCity}
-            />
+
+
+          <section className="card" style={{ marginTop: "1.75rem" }}>
+             <SmartTipsPanel city={insightCity} />
           </section>
         </div>
       )}
@@ -480,130 +482,14 @@ const Dashboard = ({ theme, toggleTheme }) => {
                 labelY="Rent 1-Bed Outside Center (USD)"
               />
             </section>
-            <section className="card">
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <h3 style={{ margin: 0 }}>
-                  Tips: {tipCity ? tipCity.city : "Select a city"}
-                </h3>
-                <div style={{ position: "relative", minWidth: 150 }}>
-                  <select
-                    value={tipCity?.city || ""}
-                    onChange={(e) =>
-                      setTipCity(cities.find((c) => c.city === e.target.value))
-                    }
-                    style={{
-                      border: "1px solid var(--border)",
-                      borderRadius: "8px",
-                      padding: "0.3rem 2rem 0.3rem 0.8rem",
-                      color: "var(--text-main)",
-                      fontSize: "0.85rem",
-                      cursor: "pointer",
-                      appearance: "none",
-                      WebkitAppearance: "none",
-                      MozAppearance: "none",
-                      outline: "none",
-                      background: "var(--bg-card)",
-                      width: "100%",
-                    }}
-                  >
-                    <option value="" disabled>
-                      Choose City...
-                    </option>
-                    {[...cities]
-                      .sort((a, b) => a.city.localeCompare(b.city))
-                      .map((c, i) => (
-                        <option key={i} value={c.city}>
-                          {c.city}
-                        </option>
-                      ))}
-                  </select>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="var(--text-muted)"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    style={{
-                      position: "absolute",
-                      right: 10,
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      pointerEvents: "none",
-                    }}
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </div>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
-                }}
-              >
-                {tipCity ? (
-                  generateSmartTips(tipCity).map((tip, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        padding: "1rem",
-                        background: "var(--bg-secondary)",
-                        borderLeft: `4px solid ${
-                          tip.type === "warning"
-                            ? "#ef4444"
-                            : tip.type === "success"
-                            ? "#10b981"
-                            : "#6366f1"
-                        }`,
-                        borderTop: "1px solid var(--border)",
-                        borderRight: "1px solid var(--border)",
-                        borderBottom: "1px solid var(--border)",
-                        borderRadius: "8px",
-                        boxShadow: "0 1px 4px rgba(15, 23, 42, 0.08)",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontWeight: "bold",
-                          marginBottom: "0.3rem",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                          color: "var(--text-main)",
-                        }}
-                      >
-                        <span>{tip.icon}</span> {tip.title}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "0.9rem",
-                          color: "var(--text-main)",
-                          lineHeight: "1.5",
-                        }}
-                      >
-                        {tip.text}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-muted">
-                    Select a "Top Value Pick" above to generate specific advice.
-                  </p>
-                )}
-              </div>
-            </section>
+
+
+             <section className="card" style={{ marginTop: "1.5rem" }}>
+                <CitySimilarityMatrix
+                  cities={cities}
+                  onCitySelect={setTipCity}
+                />
+             </section>
           </div>
         </div>
       )}

@@ -37,10 +37,9 @@ const InsightPanel = ({ cityData, showSavings = false }) => {
   const savingsAmount = salary - totalCost;
   // Replaced Salary/Savings with Internet and Quality of Life
   const internet = cityData.internet || 0;
-  const qol = cityData.quality_of_life_index || 0;
-
-  // QoL Color (Higher is better)
-  const qolColor = qol > 150 ? "#10b981" : qol > 100 ? "#f59e0b" : "#ef4444";
+  // Purchasing Power = Salary / Cost
+  const power = totalCost > 0 ? salary / totalCost : 0;
+  const powerColor = power > 1.5 ? "#10b981" : power > 1.0 ? "#f59e0b" : "#ef4444";
 
   return (
     <div
@@ -129,7 +128,7 @@ const InsightPanel = ({ cityData, showSavings = false }) => {
         </div>
       </div>
 
-      {qol > 0 && (
+      {power > 0 && (
         <div style={{ marginBottom: "2rem" }}>
           <div
             style={{
@@ -139,10 +138,10 @@ const InsightPanel = ({ cityData, showSavings = false }) => {
             }}
           >
             <span style={{ color: "var(--text-muted)", fontWeight: "600" }}>
-              Quality of Life
+              Purchasing Power
             </span>
-            <span style={{ color: qolColor, fontWeight: "bold" }}>
-              {qol.toFixed(0)}
+            <span style={{ color: powerColor, fontWeight: "bold" }}>
+              {power.toFixed(2)}x
             </span>
           </div>
           <div
@@ -156,9 +155,9 @@ const InsightPanel = ({ cityData, showSavings = false }) => {
           >
             <div
               style={{
-                width: `${Math.min(100, (qol / 200) * 100)}%`, // Normalize QoL (approx max 200)
+                width: `${Math.min(100, (power / 2.5) * 100)}%`, // Normalize (approx max 2.5x)
                 height: "100%",
-                background: qolColor,
+                background: powerColor,
                 transition: "width 0.3s ease-out",
               }}
             ></div>
@@ -171,7 +170,7 @@ const InsightPanel = ({ cityData, showSavings = false }) => {
               textAlign: "right",
             }}
           >
-            Safety, Health, Climate & more
+            Local Salary vs. Cost of Living
           </div>
         </div>
       )}

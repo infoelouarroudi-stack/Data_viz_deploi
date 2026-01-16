@@ -373,7 +373,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
 
 
           <section className="card" style={{ marginTop: "1.75rem" }}>
-             <SmartTipsPanel city={insightCity} />
+            <SmartTipsPanel city={insightCity} />
           </section>
         </div>
       )}
@@ -484,12 +484,12 @@ const Dashboard = ({ theme, toggleTheme }) => {
             </section>
 
 
-             <section className="card" style={{ marginTop: "1.5rem" }}>
-                <CitySimilarityMatrix
-                  cities={cities}
-                  onCitySelect={setTipCity}
-                />
-             </section>
+            <section className="card" style={{ marginTop: "1.5rem" }}>
+              <CitySimilarityMatrix
+                cities={cities}
+                onCitySelect={setTipCity}
+              />
+            </section>
           </div>
         </div>
       )}
@@ -641,10 +641,10 @@ const Dashboard = ({ theme, toggleTheme }) => {
                 marginTop: "2rem",
               }}
             >
-              {/* Left: Lifestyle Radar - Spans 5 columns */}
+              {/* Left: Lifestyle Radar - Spans 4 columns */}
               <div
                 style={{
-                  gridColumn: "span 5",
+                  gridColumn: "span 4",
                 }}
               >
                 <h3
@@ -694,13 +694,13 @@ const Dashboard = ({ theme, toggleTheme }) => {
                 </div>
               </div>
 
-              {/* Right: Financial Overview - Spans 7 columns */}
+              {/* Right: Financial Overview - Spans 8 columns */}
               <div
                 style={{
-                  gridColumn: "span 7",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "3rem",
+                  gridColumn: "span 8",
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gap: "1.5rem",
                 }}
               >
                 <div>
@@ -713,7 +713,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                       textAlign: "center",
                     }}
                   >
-                    Cost vs Income
+                    Cost of Living
                   </h3>
                   <div
                     style={{
@@ -725,6 +725,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                       metric="estimated_monthly_cost_single"
                       label="Monthly Cost of Living ($)"
                       color="#f43f5e"
+                      height={500}
                     />
                   </div>
                 </div>
@@ -751,6 +752,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
                       metric="salary"
                       label="Average Monthly Salary ($)"
                       color="#6366f1"
+                      height={500}
                     />
                   </div>
                 </div>

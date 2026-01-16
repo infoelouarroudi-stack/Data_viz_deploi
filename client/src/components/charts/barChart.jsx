@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 
-const BarChart = ({ data, metric, label }) => {
+const BarChart = ({ data, metric, label, height = 400 }) => {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -12,9 +12,9 @@ const BarChart = ({ data, metric, label }) => {
         d3.select(svgRef.current).selectAll('*').remove();
 
         // Dimensions
-        const width = 600;
-        const height = 400;
-        const margin = { top: 20, right: 30, bottom: 40, left: 150 };
+        const width = 450; // Reduced from 600 to make elements appear larger
+        // height is now passed as prop
+        const margin = { top: 20, right: 30, bottom: 40, left: 120 };
 
         const svg = d3.select(svgRef.current)
             .attr('width', '100%')
@@ -30,16 +30,16 @@ const BarChart = ({ data, metric, label }) => {
             .range([margin.left, width - margin.right]);
 
         const y = d3.scaleBand()
-            .domain(data.map(d => d.city))
+            .domain(d3.range(data.length)) // Use index to handle potential duplicates
             .range([margin.top, height - margin.bottom])
-            .padding(0.2);
+            .padding(0.3);
 
         // Bars
         svg.selectAll('rect')
             .data(data)
             .join('rect')
             .attr('x', x(0))
-            .attr('y', d => y(d.city))
+            .attr('y', (d, i) => y(i))
             .attr('width', d => x(d[metric] || 0) - x(0))
             .attr('height', y.bandwidth())
             .attr('fill', 'var(--primary)') // Primary color
@@ -51,10 +51,11 @@ const BarChart = ({ data, metric, label }) => {
             .join('text')
             .attr('class', 'label')
             .attr('x', d => x(d[metric] || 0) + 5)
-            .attr('y', d => y(d.city) + y.bandwidth() / 2)
+            .attr('y', (d, i) => y(i) + y.bandwidth() / 2)
             .attr('dy', '0.35em')
-            .text(d => d[metric] ? `$${d[metric].toFixed(2)}` : 'N/A')
-            .attr('font-size', '12px')
+            .text(d => d[metric] ? `$${d[metric].toFixed(0)}` : 'N/A')
+            .attr('font-size', '13px')
+            .attr('font-weight', '600')
             .attr('fill', 'var(--text-muted)');
 
         // Axes
@@ -62,19 +63,19 @@ const BarChart = ({ data, metric, label }) => {
             .attr('transform', `translate(0,${height - margin.bottom})`)
             .call(d3.axisBottom(x).ticks(5).tickFormat(d => `$${d}`))
             .call(g => g.select('.domain').remove());
-        
-        xAxis.selectAll('text').attr('fill', 'var(--text-muted)');
+
+        xAxis.selectAll('text').attr('fill', 'var(--text-muted)').style('font-size', '11px');
         xAxis.selectAll('line').attr('stroke', 'var(--border)');
 
         const yAxis = svg.append('g')
             .attr('transform', `translate(${margin.left},0)`)
-            .call(d3.axisLeft(y).tickSizeOuter(0));
-            
+            .call(d3.axisLeft(y).tickFormat(i => data[i]?.city).tickSizeOuter(0));
+
         yAxis.selectAll('text')
-            .style('font-size', '12px')
-            .style('font-weight', '500')
-            .style('fill', 'var(--text-main)'); 
-        
+            .style('font-size', '13px')
+            .style('font-weight', '600')
+            .style('fill', 'var(--text-main)');
+
         yAxis.selectAll('line').attr('stroke', 'var(--border)');
         yAxis.select('.domain').remove();
 
@@ -99,7 +100,8 @@ const BarChart = ({ data, metric, label }) => {
 BarChart.propTypes = {
     data: PropTypes.array.isRequired,
     metric: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired
+    label: PropTypes.string.isRequired,
+    height: PropTypes.number
 };
 
 export default BarChart;

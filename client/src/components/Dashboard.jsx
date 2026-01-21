@@ -55,7 +55,7 @@ const REGION_MAPPING = {
   "Bolivia": "Americas", "Costa Rica": "Americas", "Panama": "Americas", "Dominican Republic": "Americas",
   "Guatemala": "Americas", "Puerto Rico": "Americas", "Cuba": "Americas", "Honduras": "Americas",
   "El Salvador": "Americas", "Jamaica": "Americas", "Trinidad And Tobago": "Americas",
-  
+
   // Africa
   "Egypt": "Africa", "South Africa": "Africa", "Nigeria": "Africa", "Kenya": "Africa",
   "Morocco": "Africa", "Tunisia": "Africa", "Algeria": "Africa", "Ghana": "Africa",
@@ -338,85 +338,93 @@ const Dashboard = ({ theme, toggleTheme }) => {
 
       {activeTab === "insights" && (
         <div className="animate-fade-in">
-          <section className="card" style={{ marginBottom: "1.75rem" }}>
-            <h2>🔍 Analyze a City</h2>
-            <div style={{ margin: "1rem 0" }}>
-              <label
-                className="text-muted"
-                style={{ display: "block", marginBottom: "0.5rem" }}
-              >
-                Select City
-              </label>
-              <div style={{ position: "relative", minWidth: 180 }}>
-                <select
-                  value={insightCity?.city || ""}
-                  onChange={(e) =>
-                    setInsightCity(
-                      cities.find((c) => c.city === e.target.value)
-                    )
-                  }
-                  style={{
-                    border: "1px solid var(--border)",
-                    borderRadius: "8px",
-                    padding: "0.5rem 2.2rem 0.5rem 1rem",
-                    color: "var(--text-main)",
-                    background: "var(--bg-card)",
-                    fontSize: "0.95rem",
-                    cursor: "pointer",
-                    appearance: "none",
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    outline: "none",
-                    width: "100%",
-                    boxSizing: "border-box",
-                    fontWeight: 600,
-                    letterSpacing: "-0.01em",
-                  }}
+          {/* Top Row: Analysis (Left) & Expenses (Right) */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: "1.75rem",
+              marginBottom: "1.75rem",
+            }}
+          >
+            <section className="card" style={{ height: "100%" }}>
+              <h2>🔍 Analyze a City</h2>
+              <div style={{ margin: "1rem 0" }}>
+                <label
+                  className="text-muted"
+                  style={{ display: "block", marginBottom: "0.5rem" }}
                 >
-                  {cities.map((c, i) => (
-                    <option key={i} value={c.city}>
-                      {c.city}, {c.country}
-                    </option>
-                  ))}
-                </select>
-                {/* ChevronDown icon for custom arrow */}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="var(--text-muted)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  style={{
-                    position: "absolute",
-                    right: 14,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    pointerEvents: "none",
-                  }}
-                >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
+                  Select City
+                </label>
+                <div style={{ position: "relative", minWidth: 180 }}>
+                  <select
+                    value={insightCity?.city || ""}
+                    onChange={(e) =>
+                      setInsightCity(
+                        cities.find((c) => c.city === e.target.value)
+                      )
+                    }
+                    style={{
+                      border: "1px solid var(--border)",
+                      borderRadius: "8px",
+                      padding: "0.5rem 2.2rem 0.5rem 1rem",
+                      color: "var(--text-main)",
+                      background: "var(--bg-card)",
+                      fontSize: "0.95rem",
+                      cursor: "pointer",
+                      appearance: "none",
+                      WebkitAppearance: "none",
+                      MozAppearance: "none",
+                      outline: "none",
+                      width: "100%",
+                      boxSizing: "border-box",
+                      fontWeight: 600,
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    {cities.map((c, i) => (
+                      <option key={i} value={c.city}>
+                        {c.city}, {c.country}
+                      </option>
+                    ))}
+                  </select>
+                  {/* ChevronDown icon for custom arrow */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="var(--text-muted)"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    style={{
+                      position: "absolute",
+                      right: 14,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
               </div>
-            </div>
 
-            {insightCity && <InsightPanel cityData={insightCity} />}
-          </section>
+              {insightCity && <InsightPanel cityData={insightCity} />}
+            </section>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.75rem" }}>
-            <section className="card">
+            <section className="card" style={{ height: "100%" }}>
               <h2>Expense Breakdown</h2>
               <p className="text-muted">
                 Estimated distribution of monthly expenses.
               </p>
               {insightCity && <ExpenseBreakdown cityData={insightCity} />}
             </section>
-
-            <SmartTipsPanel city={insightCity} />
           </div>
+
+          <SmartTipsPanel city={insightCity} />
         </div>
       )}
 
@@ -434,7 +442,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
             }}
           >
             <h2 style={{ margin: 0, fontSize: "1.3rem" }}>🏆 Cheapest Cities for Students</h2>
-            
+
             {/* Region Filter Buttons */}
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
               {["All", "Asia", "Europe", "Americas", "Africa", "Oceania"].map(region => (
@@ -485,9 +493,9 @@ const Dashboard = ({ theme, toggleTheme }) => {
               const processedCities = cities
                 .filter(
                   (c) => c.apt_1bed_outside_center > 0 &&
-                         c.internet > 0 && 
-                         c.meal_inexpensive > 0 &&
-                         c.pass_monthly > 0
+                    c.internet > 0 &&
+                    c.meal_inexpensive > 0 &&
+                    c.pass_monthly > 0
                 )
                 .map((c) => {
                   // Total Student Budget (USD/month)
@@ -501,12 +509,12 @@ const Dashboard = ({ theme, toggleTheme }) => {
                   // Data Quality Indicator
                   const hasQol = c.quality_of_life_index > 0;
                   const hasSafety = c.safety_index > 0;
-                  const dataQuality = (hasQol && hasSafety) ? "complete" : 
-                                       (hasQol || hasSafety) ? "partial" : "limited";
+                  const dataQuality = (hasQol && hasSafety) ? "complete" :
+                    (hasQol || hasSafety) ? "partial" : "limited";
 
                   // Confidence factor based on data quality (penalizes incomplete data)
-                  const confidenceFactor = dataQuality === "complete" ? 1.0 : 
-                                           dataQuality === "partial" ? 0.95 : 0.85;
+                  const confidenceFactor = dataQuality === "complete" ? 1.0 :
+                    dataQuality === "partial" ? 0.95 : 0.85;
 
                   // Student Suitability Score (0-100)
                   // Weights: 45% Budget + 30% Safety + 15% QoL + 10% Internet
@@ -515,14 +523,14 @@ const Dashboard = ({ theme, toggleTheme }) => {
                   const qolScore = hasQol ? c.quality_of_life_index : 50;
                   const safetyScore = hasSafety ? c.safety_index : 50;
                   const internetScore = Math.max(0, (1 - internet / 100) * 100);
-                  
+
                   // Base score with student-oriented weights
-                  const baseScore = 
-                    (budgetScore * 0.45) + 
-                    (safetyScore * 0.30) + 
-                    (qolScore * 0.15) + 
+                  const baseScore =
+                    (budgetScore * 0.45) +
+                    (safetyScore * 0.30) +
+                    (qolScore * 0.15) +
                     (internetScore * 0.10);
-                  
+
                   // Final score adjusted by data confidence
                   const suitabilityScore = baseScore * confidenceFactor;
 
@@ -589,17 +597,17 @@ const Dashboard = ({ theme, toggleTheme }) => {
                   <div style={{ fontSize: "0.8rem", color: "#94a3b8" }}>
                     {c.country}
                   </div>
-                  
+
                   {/* Main metric */}
-                  <div style={{ 
-                    fontSize: "1.2rem", 
-                    fontWeight: "700", 
+                  <div style={{
+                    fontSize: "1.2rem",
+                    fontWeight: "700",
                     color: accentColor,
                     marginTop: "4px"
                   }}>
                     ${c.totalCost.toFixed(0)}/month
                   </div>
-                  
+
                   {/* Cost breakdown */}
                   <div
                     style={{

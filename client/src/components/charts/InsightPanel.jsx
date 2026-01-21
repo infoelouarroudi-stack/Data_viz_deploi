@@ -45,7 +45,6 @@ const InsightPanel = ({ cityData, showSavings = false }) => {
     <div
       className="card animate-fade-in"
       style={{
-        height: "100%",
         width: "100%",
         flex: 1,
         borderColor: "var(--border)",
